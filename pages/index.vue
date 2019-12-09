@@ -1,72 +1,75 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        v-blog-2
-      </h1>
-      <h2 class="subtitle">
-        Vue blog app redesigned!
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div>
+    <template v-if="posts.length">
+      <post-thumbnail
+        v-for="post in posts"
+        :key="post.id"
+        :post-id="post.id"
+        :title="post.data.title"
+        :edit-time="post.data.editTime"
+        :published="post.data.published"
+        :abstract="post.data.abstract"
+        :thumbnail="post.data.thumbnail"
+      />
+    </template>
+
+    <no-posts v-else>
+      Unfortunately, there are no posts that could be displayed.
+    </no-posts>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+
+import PostThumbnail from '../components/PostThumbnail.vue'
+import NoPosts from '../components/NoPosts.vue'
+import metaConfig from '../assets/config/meta.js'
 
 export default {
   components: {
-    Logo
+    PostThumbnail,
+    NoPosts
+  },
+  metaInfo () {
+    return {
+      title: metaConfig.title,
+      meta: [
+        {
+          property: 'og:url',
+          content: window.location.href
+        },
+        {
+          property: 'og:type',
+          content: 'blog'
+        },
+        {
+          property: 'og:title',
+          content: metaConfig.title
+        },
+        {
+          property: 'og:description',
+          content: metaConfig.desc
+        },
+        {
+          property: 'description',
+          content: metaConfig.desc
+        },
+        {
+          property: 'keywords',
+          content: metaConfig.keywords
+        }
+      ]
+    }
+  },
+  computed: {
+    posts () {
+      return this.$store.state.posts
+    }
   }
+  // async fetch ({ store, params }) {
+  //   console.log(store.state)
+  //   const posts = await postsDB.where('published', '==', true).get()
+  //   store.commit('updatePosts', posts)
+  // }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

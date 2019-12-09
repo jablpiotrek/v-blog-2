@@ -28,13 +28,15 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/firestore.js'
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    ['@nuxtjs/dotenv', { filename: '.env.local' }]
   ],
   /*
   ** Nuxt.js modules
@@ -42,8 +44,30 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
+    [
+      'nuxt-fontawesome',
+      {
+        component: 'icon',
+        imports: [
+          {
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          },
+          {
+            set: '@fortawesome/free-brands-svg-icons',
+            icons: ['fab']
+          }
+        ]
+      }
+    ]
   ],
+  styleResources: {
+    scss: [
+      '@/styles/global.scss'
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

@@ -1,55 +1,59 @@
 <template>
-  <div>
-    <nuxt />
+  <div :class="`main-content ${isUserLoggedIn ? 'main-content--logged-user' : ''}`">
+    <heading />
+    <router-view class="main-content__router-view" />
+    <foot />
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+<script>
+
+import 'firebase/auth'
+import Heading from '@/components/Heading.vue'
+import Foot from '@/components/Foot.vue'
+
+export default {
+  name: 'MainContent',
+  components: {
+    Heading,
+    Foot
+  },
+  computed: {
+    isUserLoggedIn () {
+      return this.$store.getters.isUserLoggedIn
+    }
+  }
+}
+</script>
+<style lang="scss">
+.main-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-}
+  padding-top: 72px;
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+  &--logged-user {
+    padding-top: 180px;
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+    @media #{$screen-medium} {
+      padding-top: 120px;
+    }
+  }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+  &__router-view {
+    flex: 1 0 auto;
+    margin: $spacer-big $spacer;
+    @media #{$screen-medium} {
+      margin: $spacer-large 0;
+      width: 900px;
+      align-self: center;
+    }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+    @media #{$screen-big} {
+      width: 1200px;
+    }
+  }
 }
 </style>

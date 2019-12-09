@@ -28,7 +28,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/firestore.js'
+    '@/plugins/firestore.js',
+    '@/plugins/vue-js-modal.js',
+    '@/plugins/firebase-auth-observer.js'
   ],
   /*
   ** Nuxt.js dev-modules

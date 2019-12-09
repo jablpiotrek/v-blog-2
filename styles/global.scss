@@ -36,3 +36,8 @@ button {
 p {
     @extend %paragraph;
 }
+
+#__layout,
+#__nuxt {
+  height: 100%;
+}

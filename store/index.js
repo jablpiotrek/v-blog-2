@@ -23,6 +23,9 @@ export const mutations = {
         data: post.data()
       })
     })
+  },
+  currentUser (state, uid) {
+    state.currentUser = uid
   }
 }
 
@@ -31,5 +34,8 @@ export const getters = {
     return id => state.posts.filter((post) => {
       return post.id === id
     })[0]
+  },
+  isUserLoggedIn (state) {
+    return !!state.currentUser
   }
 }

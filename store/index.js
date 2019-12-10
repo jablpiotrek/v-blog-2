@@ -1,28 +1,38 @@
 import postsDB from '@/plugins/firestore.js'
 
+const allPosts = postsDB
+const publishedPosts = allPosts.where('published', '==', true)
+
 export const state = () => ({
-  publishedPostsDB: null,
   posts: [],
-  currentUser: null,
-  postsListener: null
+  currentUser: null
 })
 
 export const actions = {
   async nuxtServerInit ({ commit }) {
-    const collection = postsDB.where('published', '==', true)
+    const posts = await publishedPosts.get()
+    commit('updatePosts', posts)
+  },
+  async getPosts ({ commit }, fetchAll = false) {
+    const collection = fetchAll ? allPosts : publishedPosts
     const posts = await collection.get()
+    posts.forEach((post) => {
+      console.log(post.id)
+    })
     commit('updatePosts', posts)
   }
 }
 
 export const mutations = {
   updatePosts (state, posts) {
+    const newPosts = []
     posts.forEach((post) => {
-      state.posts.push({
+      newPosts.push({
         id: post.id,
         data: post.data()
       })
     })
+    state.posts = newPosts
   },
   currentUser (state, uid) {
     state.currentUser = uid

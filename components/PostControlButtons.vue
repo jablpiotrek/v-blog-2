@@ -25,6 +25,7 @@
 
 <script>
 import ModalContent from './ModalContent.vue'
+import '@/plugins/firestore'
 
 export default {
   name: 'PostControlButtons',
@@ -70,17 +71,14 @@ export default {
     },
     editPost () {
       this.$router.push({
-        name: 'edit-post',
+        name: 'edit-post-postId',
         params: {
           postId: this.postId
         }
       })
     },
     async deletePost () {
-      await this.postsDB.doc(this.postId).delete().catch(() => {
-        // eslint-disable-next-line
-        console.error('Error during post deletion!')
-      })
+      await this.$store.dispatch('deletePost', this.postId)
       this.hideDeletePopup()
     }
   }

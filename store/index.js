@@ -16,10 +16,15 @@ export const actions = {
   async getPosts ({ commit }, fetchAll = false) {
     const collection = fetchAll ? allPosts : publishedPosts
     const posts = await collection.get()
-    posts.forEach((post) => {
-      console.log(post.id)
-    })
     commit('updatePosts', posts)
+  },
+  async deletePost ({ commit }, postId) {
+    await allPosts.doc(postId).delete()
+    commit('deletePost', postId)
+  },
+  async addPost ({ commit }, post) {
+    await allPosts.doc(post.id).set(post.data)
+    commit('addPost', post)
   }
 }
 
@@ -33,6 +38,17 @@ export const mutations = {
       })
     })
     state.posts = newPosts
+  },
+  deletePost (state, postId) {
+    state.posts = state.posts.filter((post) => {
+      return post.id !== postId
+    })
+  },
+  addPost (state, newPost) {
+    state.posts = state.posts.filter((post) => {
+      return post.id !== newPost.id
+    })
+    state.posts.push(newPost)
   },
   currentUser (state, uid) {
     state.currentUser = uid

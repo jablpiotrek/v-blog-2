@@ -103,34 +103,54 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-      htmlField: this.html,
-      authorField: this.author,
-      titleField: this.title,
-      publishedField: this.published,
-      abstractField: this.abstract,
-      thumbnailField: this.thumbnail
-    }
-  },
-  watch: {
-    authorField (value) {
-      this.$emit('update:author', value)
+  computed: {
+    htmlField: {
+      get () {
+        return this.html
+      },
+      set (value) {
+        this.$emit('update:html', value)
+      }
     },
-    titleField (value) {
-      this.$emit('update:title', value)
+    titleField: {
+      get () {
+        return this.title
+      },
+      set (value) {
+        this.$emit('update:title', value)
+      }
     },
-    publishedField (value) {
-      this.$emit('update:published', value)
+    publishedField: {
+      get () {
+        return this.published
+      },
+      set (value) {
+        this.$emit('update:published', value)
+      }
     },
-    abstractField (value) {
-      this.$emit('update:abstract', value)
+    abstractField: {
+      get () {
+        return this.abstract
+      },
+      set (value) {
+        this.$emit('update:abstract', value)
+      }
     },
-    htmlField (value) {
-      this.$emit('update:html', value)
+    thumbnailField: {
+      get () {
+        return this.thumbnail
+      },
+      set (value) {
+        this.$emit('update:thumbnail', value)
+      }
     },
-    thumbnailField (value) {
-      this.$emit('update:thumbnail', value)
+    authorField: {
+      get () {
+        return this.author
+      },
+      set (value) {
+        this.$emit('update:author', value)
+      }
     }
   }
 }

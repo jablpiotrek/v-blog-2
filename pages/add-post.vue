@@ -22,7 +22,6 @@ import PostEditor from '../components/PostEditor.vue'
 import PostEditControls from '../components/PostEditControls.vue'
 
 import time from '@/mixins/time'
-import postsDB from '@/plugins/firestore.js'
 
 export default {
   name: 'AddPost',
@@ -64,9 +63,9 @@ export default {
   methods: {
     async submit () {
       this.editTime = this.time()
-      await postsDB.doc(this.docId).set(this.post).catch(() => {
-        // eslint-disable-next-line
-        console.error('Error during post add!')
+      await this.$store.dispatch('addPost', {
+        data: this.post,
+        id: this.docId
       })
       this.$router.push({
         name: 'index'

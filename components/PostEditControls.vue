@@ -38,14 +38,15 @@ export default {
       text: 'Do you want to discard changes?',
       actions: [
         {
+          title: 'No',
+          handler: this.hide
+        },
+        {
           title: 'Yes',
           handler: this.close,
           danger: true
-        },
-        {
-          title: 'No',
-          handler: this.hide
         }
+
       ]
     }
   },

@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="post-control-buttons">
     <button
       @click="editPost"
       type="button"
+      class="post-control-buttons__button"
     >
       Edit
     </button>
@@ -10,6 +11,7 @@
     <button
       @click="showDeleteModal"
       type="button"
+      class="post-control-buttons__button post-control-buttons__button--delete"
     >
       Delete
     </button>
@@ -45,13 +47,13 @@ export default {
         text: 'Do you really want to delete post?',
         actions: [
           {
+            title: 'No',
+            handler: this.hideDeletePopup
+          },
+          {
             title: 'Yes',
             handler: this.deletePost,
             danger: true
-          },
-          {
-            title: 'No',
-            handler: this.hideDeletePopup
           }
         ]
       }
@@ -84,3 +86,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.post-control-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__button {
+    width: 100%;
+    margin-bottom: $spacer;
+
+      @media #{$screen-medium} {
+            width: 160px;
+      }
+
+      &--delete {
+        @extend %secondary-button;
+      }
+  }
+}
+</style>

@@ -34,12 +34,11 @@
           class="post-thumbnail__goto-icon"
         />
       </button>
-
-      <post-control-buttons
-        v-if="isEditable"
-        :post-id="postId"
-      />
     </div>
+    <post-control-buttons
+      v-if="isEditable"
+      :post-id="postId"
+    />
   </div>
 </template>
 
@@ -145,11 +144,11 @@ export default {
   }
 
   &__goto {
-    margin-top: $spacer-big;
     width: 100%;
+    margin-bottom: $spacer;
 
     @media #{$screen-medium} {
-      width: auto;
+      width: 160px;
       margin-top: 0;
     }
   }

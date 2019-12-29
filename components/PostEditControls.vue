@@ -16,7 +16,7 @@
       Close
     </button>
 
-    <modal name="close-confirmation-modal" height="auto" :max-width="600" :adaptive="true">
+    <modal :max-width="600" :adaptive="true" name="close-confirmation-modal" height="auto">
       <modal-content
         :header="header"
         :text="text"

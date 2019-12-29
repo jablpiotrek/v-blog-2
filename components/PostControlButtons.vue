@@ -15,7 +15,7 @@
     >
       Delete
     </button>
-    <modal :name="`delete-post-modal-${postId}`">
+    <modal :name="`delete-post-modal-${postId}`" height="auto" :max-width="600" :adaptive="true">
       <modal-content
         :header="deletePostModal.header"
         :text="deletePostModal.text"

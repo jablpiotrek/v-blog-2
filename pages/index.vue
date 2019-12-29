@@ -10,6 +10,7 @@
         :published="post.data.published"
         :abstract="post.data.abstract"
         :thumbnail="post.data.thumbnail"
+        :author="post.data.author"
       />
     </template>
 

@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="post-edit-controls">
     <button
       @click="submit"
       type="button"
+      class="post-edit-controls__submit"
     >
       Submit post
     </button>
@@ -10,11 +11,12 @@
     <button
       @click="show"
       type="button"
+      class="post-edit-controls__close"
     >
       Close
     </button>
 
-    <modal name="close-confirmation-modal">
+    <modal name="close-confirmation-modal" height="auto" :max-width="600" :adaptive="true">
       <modal-content
         :header="header"
         :text="text"
@@ -70,6 +72,28 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.post-edit-controls {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-top: $spacer-big;
 
+  @media #{$screen-medium} {
+    flex-direction: row;
+  }
+
+  &__submit {
+    margin-bottom: $spacer;
+
+    @media #{$screen-medium} {
+      margin-right: $spacer;
+      margin-bottom: 0;
+    }
+  }
+
+  &__close {
+    @extend %secondary-button;
+  }
+}
 </style>

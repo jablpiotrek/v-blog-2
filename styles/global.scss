@@ -16,6 +16,13 @@ h1, h2, h3, h4, h5, h6, p, a {
     margin: 0;
 }
 
+h2 {
+  font-size: $font-large;
+}
+ h3 {
+  font-size: $font-big;
+ }
+
 p, a {
     font-size: $font-base;
     font-weight: normal;

@@ -9,9 +9,9 @@
         >
       </div>
 
-      <h3 class="post-thumbnail__title">
+      <h2 class="post-thumbnail__title">
         {{ title }}
-      </h3>
+      </h2>
     </div>
 
     <p class="post-thumbnail__abstract">
@@ -19,10 +19,15 @@
     </p>
 
     <div class="post-thumbnail__footer">
-      <p class="post-thumbnail__edit-time">
-        {{ editTime }}
-      </p>
+      <div class="post-thumbnail__details">
+        <p class="post-thumbnail__author">
+          {{ author }}
+        </p>
 
+        <p class="post-thumbnail__edit-time">
+          {{ editTime }}
+        </p>
+      </div>
       <button
         @click="openPost"
         type="button"
@@ -73,6 +78,10 @@ export default {
     thumbnail: {
       type: String,
       default: ''
+    },
+    author: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -107,19 +116,22 @@ export default {
   }
 
   &__image {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    object-fit: cover;
+    border: 1px solid $secondary;
+    padding: $spacer-small;
+    box-sizing: border-box;
     @media #{$screen-medium} {
-      width: 80px;
-      height: 80px;
-      border-radius: 40px;
+      width: 90px;
+      height: 90px;
+      border-radius: 45px;
     }
   }
 
   &__title {
     margin: $spacer 0;
-    font-size: $font-big;
 
     @media #{$screen-medium} {
       margin-left: $spacer-big;
@@ -129,9 +141,8 @@ export default {
   &__footer {
     display: flex;
     flex-direction: column;
-    margin-top: $spacer-big;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
 
     @media #{$screen-medium} {
       flex-direction: row;
@@ -145,16 +156,28 @@ export default {
 
   &__goto {
     width: 100%;
-    margin-bottom: $spacer;
+    margin: $spacer 0;
 
     @media #{$screen-medium} {
       width: 160px;
-      margin-top: 0;
     }
   }
 
-    &__goto-icon {
-      margin-left: $spacer;
+  &__goto-icon {
+    margin-left: $spacer;
+  }
+
+  &__author {
+    color: $secondary;
+  }
+
+  &__details {
+    width: 100%;
+    margin-top: $spacer;
+        @media #{$screen-medium} {
+      width: auto;
     }
+  }
+
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>
+  <div class="edit-post">
+    <h2 class="edit-post__title">
       Edit Post
     </h2>
 

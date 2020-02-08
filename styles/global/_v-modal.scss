@@ -1,0 +1,8 @@
+@import './z-indexes';
+
+.v--modal {
+  z-index: $z-index-medium;
+  &-overlay {
+    background-color: rgba(0,0,0,0.6);
+  }
+}

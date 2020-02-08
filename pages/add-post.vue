@@ -18,10 +18,10 @@
 </template>
 
 <script>
+import time from '@/mixins/time'
+
 import PostEditor from '../components/PostEditor.vue'
 import PostEditControls from '../components/PostEditControls.vue'
-
-import time from '@/mixins/time'
 
 export default {
   name: 'AddPost',

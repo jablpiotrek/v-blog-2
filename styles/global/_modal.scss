@@ -1,0 +1,35 @@
+.modal {
+  background: $white;
+  z-index: $z-index-high;
+  padding: $spacer;
+
+  &__header {
+    margin-bottom: $spacer-big;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    margin-top: $spacer-big;
+    @media #{$screen-medium} {
+      align-items: flex-end;
+    }
+  }
+
+  &__actions-button {
+    width: 100%;
+    margin-bottom: $spacer;
+
+    @media #{$screen-medium} {
+      width: 160px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--danger {
+      @extend %secondary-button;
+    }
+  }
+}

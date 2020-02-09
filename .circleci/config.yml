@@ -4,16 +4,43 @@
 #
 version: 2
 jobs:
-  build:
+  yarn_install:
     docker:
       - image: circleci/node:erbium
     steps:
       - checkout
       - run: yarn
+      - save_cache:
+          key: node-modules-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+  lint:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - restore_cache:
+        keys:
+          - node-modules-cache-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  build:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - restore_cache:
+        keys:
+          - node-modules-cache-{{ checksum "yarn.lock" }}
       - run: yarn build
 
 workflows:
   version: 2
   build:
     jobs:
+      - yarn_install
       - build
+        requires:
+          - yarn_install
+      - lint
+        requires:
+          - yarn_install

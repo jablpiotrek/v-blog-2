@@ -45,9 +45,28 @@ jobs:
             - node-modules-cache-{{ checksum "yarn.lock" }}
       - run: yarn test
 
+  deploy:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "02:ba:74:bc:22:00:a3:00:3a:88:6f:17:06:f7:0f:d4"
+      - checkout
+      - run:
+          name: Deployment
+          command: |
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
+            # cd v-blog-2
+            # git checkout master
+            # git pull
+            # yarn
+            # yarn build
+            # pm2 restart $SSH_PM2_ID
+
 workflows:
   version: 2
-  lint_test_build:
+  lint_test_build_deploy:
     jobs:
       - yarn_install
       - lint:
@@ -58,7 +77,6 @@ workflows:
             - yarn_install
       - build:
           requires:
-            - yarn_install
             - test
             - lint
           filters:
@@ -66,4 +84,11 @@ workflows:
               only:
                 - develop
                 - master
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build
 

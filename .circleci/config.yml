@@ -49,11 +49,14 @@ jobs:
     docker:
       - image: circleci/node:erbium
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "02:ba:74:bc:22:00:a3:00:3a:88:6f:17:06:f7:0f:d4"
       - checkout
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT "cd v-blog-2 && git checkout master && git pull "
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT "cd v-blog-2 && git checkout master && git pull"
             # cd v-blog-2
             # git checkout master
             # git pull

@@ -58,7 +58,6 @@ workflows:
             - yarn_install
       - build:
           requires:
-            - yarn_install
             - test
             - lint
           filters:

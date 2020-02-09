@@ -20,8 +20,8 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - restore_cache:
-        keys:
-          - node-modules-cache-{{ checksum "yarn.lock" }}
+          keys:
+            - node-modules-cache-{{ checksum "yarn.lock" }}
       - run: yarn lint
 
   build:
@@ -29,8 +29,8 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - restore_cache:
-        keys:
-          - node-modules-cache-{{ checksum "yarn.lock" }}
+          keys:
+            - node-modules-cache-{{ checksum "yarn.lock" }}
       - run: yarn build
 
 workflows:
@@ -39,8 +39,8 @@ workflows:
     jobs:
       - yarn_install
       - build:
-        requires:
-          - yarn_install
+          requires:
+            - yarn_install
       - lint:
-        requires:
-          - yarn_install
+          requires:
+            - yarn_install

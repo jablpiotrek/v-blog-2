@@ -38,9 +38,9 @@ workflows:
   build:
     jobs:
       - yarn_install
-      - build
+      - build:
         requires:
           - yarn_install
-      - lint
+      - lint:
         requires:
           - yarn_install

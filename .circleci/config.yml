@@ -1,0 +1,69 @@
+# JavaScript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  yarn_install:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - run: yarn
+      - save_cache:
+          key: node-modules-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+  lint:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-modules-cache-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  build:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-modules-cache-{{ checksum "yarn.lock" }}
+      - run: yarn build
+
+  test:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-modules-cache-{{ checksum "yarn.lock" }}
+      - run: yarn test
+
+workflows:
+  version: 2
+  lint_test_build:
+    jobs:
+      - yarn_install
+      - lint:
+          requires:
+            - yarn_install
+      - test:
+          requires:
+            - yarn_install
+      - build:
+          requires:
+            - yarn_install
+            - test
+            - lint
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+

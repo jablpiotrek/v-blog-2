@@ -26,10 +26,6 @@ jobs:
       - run: yarn lint
 
   build:
-    branches:
-      only:
-        - master
-        - develop
     docker:
       - image: circleci/node:erbium
     steps:
@@ -51,16 +47,21 @@ jobs:
 
 workflows:
   version: 2
-  v-blog-2-pipeline:
+  lint_test_build:
     jobs:
       - yarn_install
-      - build:
-          requires:
-            - yarn_install
       - lint:
           requires:
             - yarn_install
       - test:
           requires:
             - yarn_install
+      - build:
+          requires:
+            - yarn_install
+          filters:
+            branches:
+              only:
+                - develop
+                - master
 

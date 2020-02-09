@@ -9,7 +9,8 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - checkout
-      - run: yarn
+      - run:
+          command: echo $SSH_USERNAME
       - save_cache:
           key: node-modules-cache-{{ checksum "yarn.lock" }}
           paths:

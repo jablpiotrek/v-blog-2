@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT "cd v-blog-2 && git checkout master && git pull"
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
             # cd v-blog-2
             # git checkout master
             # git pull

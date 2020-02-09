@@ -63,7 +63,7 @@ jobs:
 
 workflows:
   version: 2
-  lint_test_build:
+  lint_test_build_deploy:
     jobs:
       - yarn_install
       - lint:

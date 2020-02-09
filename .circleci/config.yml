@@ -45,6 +45,21 @@ jobs:
             - node-modules-cache-{{ checksum "yarn.lock" }}
       - run: yarn test
 
+  deploy:
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - run:
+          name: Deployment
+          command: |
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT
+            cd v-blog-2
+            git checkout master
+            yarn
+            yarn build
+            pm2 restart $SSH_PM2_ID
+
 workflows:
   version: 2
   lint_test_build:
@@ -65,4 +80,11 @@ workflows:
               only:
                 - develop
                 - master
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build
 

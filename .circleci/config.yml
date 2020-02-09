@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: echo $SSH_USERNAME
+          command: ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
       - save_cache:
           key: node-modules-cache-{{ checksum "yarn.lock" }}
           paths:

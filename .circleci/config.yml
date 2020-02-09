@@ -53,13 +53,13 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT
-            cd v-blog-2
-            git checkout master
-            git pull
-            yarn
-            yarn build
-            pm2 restart $SSH_PM2_ID
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT "cd v-blog-2 && git checkout master && git pull "
+            # cd v-blog-2
+            # git checkout master
+            # git pull
+            # yarn
+            # yarn build
+            # pm2 restart $SSH_PM2_ID
 
 workflows:
   version: 2

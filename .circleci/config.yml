@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && git pull origin master'
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
 
 
 workflows:

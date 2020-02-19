@@ -57,13 +57,8 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
-            # cd v-blog-2
-            # git checkout master
-            # git pull
-            # yarn
-            # yarn build
-            # pm2 restart $SSH_PM2_ID
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && git pull origin master'
+
 
 workflows:
   version: 2
@@ -85,11 +80,11 @@ workflows:
               only:
                 - develop
                 - master
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - build
+      - deploy
+          # filters:
+          #   # branches:
+          #   #   only:
+          #   #     - master
+          # requires:
+          #   - builds
 

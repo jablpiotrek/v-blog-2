@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_POxRT -v ls
+            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v ls
 
 
 workflows:

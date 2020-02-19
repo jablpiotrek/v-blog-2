@@ -57,29 +57,29 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
+            ssh $SSH_USERNAxME@$SSxH_IP -p $SSH_POxRT -v
 
 
 workflows:
   version: 2
   lint_test_build_deploy:
     jobs:
-      - yarn_install
-      - lint:
-          requires:
-            - yarn_install
-      - test:
-          requires:
-            - yarn_install
-      - build:
-          requires:
-            - test
-            - lint
-          filters:
-            branches:
-              only:
-                - develop
-                - master
+      # - yarn_install
+      # - lint:
+      #     requires:
+      #       - yarn_install
+      # - test:
+      #     requires:
+      #       - yarn_install
+      # - build:
+      #     requires:
+      #       - test
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - master
       - deploy
           # filters:
           #   # branches:

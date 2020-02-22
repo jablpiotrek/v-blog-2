@@ -9,7 +9,8 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - checkout
-      - run: yarn
+      - run:
+          command: ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
       - save_cache:
           key: node-modules-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -52,43 +53,37 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "02:ba:74:bc:22:00:a3:00:3a:88:6f:17:06:f7:0f:d4"
-      - checkout
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v
-            # cd v-blog-2
-            # git checkout master
-            # git pull
-            # yarn
-            # yarn build
-            # pm2 restart $SSH_PM2_ID
+            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && rm -rf node_modules && nvm use 12 && git checkout master && git pull && yarn && yarn build'
+
 
 workflows:
   version: 2
   lint_test_build_deploy:
     jobs:
-      - yarn_install
-      - lint:
-          requires:
-            - yarn_install
-      - test:
-          requires:
-            - yarn_install
-      - build:
-          requires:
-            - test
-            - lint
-          filters:
-            branches:
-              only:
-                - develop
-                - master
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - build
+      # - yarn_install
+      # - lint:
+      #     requires:
+      #       - yarn_install
+      # - test:
+      #     requires:
+      #       - yarn_install
+      # - build:
+      #     requires:
+      #       - test
+      #       - lint
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
+      #           - master
+      - deploy
+          # filters:
+          #   # branches:
+          #   #   only:
+          #   #     - master
+          # requires:
+          #   - builds
 

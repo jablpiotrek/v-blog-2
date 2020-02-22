@@ -53,11 +53,10 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "02:ba:74:bc:22:00:a3:00:3a:88:6f:17:06:f7:0f:d4"
-      - run: ssh-keyscan $SSH_IP >> ~/.ssh/known_hosts
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v ls
+            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v ls
 
 
 workflows:

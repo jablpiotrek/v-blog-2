@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && git checkout master && git pull && yarn && yarn build'
+            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && rm -rf node_modules && nvm use 12 && git checkout master && git pull && yarn && yarn build'
 
 
 workflows:

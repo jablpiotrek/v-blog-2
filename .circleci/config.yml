@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Deployment
           command: |
-            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v ls
+            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v 'cd v-blog-2 && git checkout master'
 
 
 workflows:

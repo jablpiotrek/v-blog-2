@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  yarn_install:
+  dependencies:
     docker:
       - image: circleci/node:erbium
     steps:
@@ -49,29 +49,32 @@ jobs:
     docker:
       - image: circleci/node:erbium
     steps:
-      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "02:ba:74:bc:22:00:a3:00:3a:88:6f:17:06:f7:0f:d4"
       - run:
           name: Deployment
           command: |
-            ssh $SSH_USERNAME@$SSH_IP -p $SSH_PORT
-            cd v-blog-2
-            git checkout master
-            git pull
-            yarn
-            yarn build
-            pm2 restart $SSH_PM2_ID
+            ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_IP -p $SSH_PORT -v '
+            . ~/.nvm/nvm.sh &&
+            cd v-blog-2 &&
+            git checkout master &&
+            git pull &&
+            yarn &&
+            yarn build &&
+            pm2 restart 5'
 
 workflows:
   version: 2
   lint_test_build_deploy:
     jobs:
-      - yarn_install
+      - dependencies
       - lint:
           requires:
-            - yarn_install
+            - dependencies
       - test:
           requires:
-            - yarn_install
+            - dependencies
       - build:
           requires:
             - test

@@ -35,6 +35,14 @@ body, html {
     box-sizing: border-box;
 }
 
+html {
+  background-color: $primary;
+}
+
+body {
+  background-color: $white;
+}
+
 ul, ol {
     margin: 0;
 }

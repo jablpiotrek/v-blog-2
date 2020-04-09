@@ -23,8 +23,24 @@ export const actions = {
     commit('deletePost', postId)
   },
   async addPost ({ commit }, post) {
-    await allPosts.doc(post.id).set(post.data)
-    commit('addPost', post)
+    const { title } = post
+    const reg = /[^a-zA-Z\d]/g
+    const id = title.replace(reg, '-')
+
+    const samePost = await allPosts.doc(id).get()
+    if (!samePost.exists) {
+      await allPosts.doc(id).set(post)
+      commit('addPost', {
+        id,
+        data: post
+      })
+      this.app.router.push({
+        name: 'index'
+      })
+    } else {
+      // eslint-disable-next-line no-console
+      console.error('Post with same title already exists.')
+    }
   }
 }
 

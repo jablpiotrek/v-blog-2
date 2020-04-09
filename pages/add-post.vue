@@ -52,24 +52,12 @@ export default {
         editTime: this.editTime,
         thumbnail: this.thumbnail
       }
-    },
-    docId () {
-      const title = this.post.title
-      const reg = /[^a-zA-Z\d]/g
-      const titleId = title.replace(reg, '-')
-      return `${Math.random().toString(36).substr(2, 6)}_${titleId}`
     }
   },
   methods: {
     async submit () {
       this.editTime = this.time()
-      await this.$store.dispatch('addPost', {
-        data: this.post,
-        id: this.docId
-      })
-      this.$router.push({
-        name: 'index'
-      })
+      await this.$store.dispatch('addPost', this.post)
     }
   }
 }

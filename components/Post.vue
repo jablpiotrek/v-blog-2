@@ -2,6 +2,7 @@
   <div class="post">
     <div class="post__header">
       <img
+        v-if="thumbnail.length"
         :src="thumbnail"
         aria-hidden="true"
         class="post__thumbnail"

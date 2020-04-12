@@ -37,7 +37,6 @@ export default {
       author: '',
       title: '',
       abstract: '',
-      editTime: '',
       thumbnail: ''
     }
   },
@@ -49,27 +48,22 @@ export default {
         published: this.published,
         title: this.title,
         abstract: this.abstract,
-        editTime: this.editTime,
         thumbnail: this.thumbnail
       }
-    },
-    docId () {
-      const title = this.post.title
-      const reg = /[^a-zA-Z\d]/g
-      const titleId = title.replace(reg, '-')
-      return `${Math.random().toString(36).substr(2, 6)}_${titleId}`
     }
   },
   methods: {
     async submit () {
-      this.editTime = this.time()
-      await this.$store.dispatch('addPost', {
-        data: this.post,
-        id: this.docId
-      })
-      this.$router.push({
-        name: 'index'
-      })
+      const { title } = this.post
+      const reg = /[^a-zA-Z\d]/g
+      const id = title.replace(reg, '-')
+      const data = {
+        ...this.post,
+        timestamp: this.timestamp()
+      }
+      const overwrite = false
+
+      await this.$store.dispatch('addPost', { id, data, overwrite })
     }
   }
 }

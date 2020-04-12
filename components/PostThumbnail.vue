@@ -1,7 +1,7 @@
 <template>
   <div class="post-thumbnail">
     <div class="post-thumbnail__header">
-      <div class="post-thumbnail__image-container">
+      <div v-if="thumbnail.length" class="post-thumbnail__image-container">
         <img
           :src="thumbnail"
           aria-hidden="true"

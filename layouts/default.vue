@@ -28,7 +28,7 @@ export default {
 <style lang="scss">
 .main-content {
   position: relative;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

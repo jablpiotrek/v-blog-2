@@ -6,7 +6,7 @@
         :key="post.id"
         :post-id="post.id"
         :title="post.data.title"
-        :edit-time="post.data.editTime"
+        :edit-time="formatTime(post.data.timestamp)"
         :published="post.data.published"
         :abstract="post.data.abstract"
         :thumbnail="post.data.thumbnail"
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import time from '@/mixins/time'
 
 import PostThumbnail from '../components/PostThumbnail.vue'
 import NoPosts from '../components/NoPosts.vue'
@@ -31,6 +32,7 @@ export default {
     PostThumbnail,
     NoPosts
   },
+  mixins: [time],
   metaInfo () {
     return {
       title: metaConfig.title,
@@ -64,13 +66,8 @@ export default {
   },
   computed: {
     posts () {
-      return this.$store.state.posts
+      return this.$store.getters.postsSorted
     }
   }
-  // async fetch ({ store, params }) {
-  //   console.log(store.state)
-  //   const posts = await postsDB.where('published', '==', true).get()
-  //   store.commit('updatePosts', posts)
-  // }
 }
 </script>

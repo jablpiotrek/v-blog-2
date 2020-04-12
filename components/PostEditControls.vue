@@ -54,13 +54,7 @@ export default {
   },
   methods: {
     submit () {
-      this.close()
       this.$emit('submit')
-    },
-    close () {
-      this.$router.push({
-        name: 'index'
-      })
     },
     show () {
       this.$modal.show('close-confirmation-modal')

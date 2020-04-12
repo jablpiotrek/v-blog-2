@@ -22,13 +22,11 @@
 import PostEditor from '@/components/PostEditor.vue'
 import PostEditControls from '@/components/PostEditControls.vue'
 
-import time from '@/mixins/time'
 export default {
   components: {
     PostEditor,
     PostEditControls
   },
-  mixins: [time],
   data () {
     return {
       post: {
@@ -51,11 +49,11 @@ export default {
   },
   methods: {
     async submit () {
-      this.post.editTime = this.time()
-      await this.$store.dispatch('addPost', {
-        id: this.id,
-        data: this.post
-      })
+      const { id } = this
+      const data = { ...this.post, timestamp: this.post.timestamp }
+      const overwrite = true
+
+      await this.$store.dispatch('addPost', { id, data, overwrite })
     }
   }
 }

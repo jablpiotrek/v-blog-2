@@ -3,7 +3,7 @@
     <post
       :post-id="id"
       :title="post.data.title"
-      :edit-time="post.data.editTime"
+      :edit-time="formatTime(post.data.timestamp)"
       :published="post.data.published"
       :html="post.data.html"
       :author="post.data.author"
@@ -14,12 +14,15 @@
 </template>
 
 <script>
+import time from '@/mixins/time'
+
 import Post from '@/components/Post.vue'
 
 export default {
   components: {
     Post
   },
+  mixins: [time],
   computed: {
     id () {
       return this.$route.params.postId

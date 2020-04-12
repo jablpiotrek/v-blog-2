@@ -23,20 +23,15 @@ export const actions = {
     commit('deletePost', postId)
   },
   async addPost ({ commit }, post) {
-    const { title } = post
-    const reg = /[^a-zA-Z\d]/g
-    const id = title.replace(reg, '-')
-
+    const { id, data, overwrite } = post
     const samePost = await allPosts.doc(id).get()
-    if (!samePost.exists) {
-      await allPosts.doc(id).set(post)
+    if (!samePost.exists || overwrite) {
+      await allPosts.doc(id).set(data)
       commit('addPost', {
         id,
-        data: post
+        data
       })
-      this.app.router.push({
-        name: 'index'
-      })
+      this.app.router.push({ name: 'index' })
     } else {
       // eslint-disable-next-line no-console
       console.error('Post with same title already exists.')
@@ -79,5 +74,10 @@ export const getters = {
   },
   isUserLoggedIn (state) {
     return !!state.currentUser
+  },
+  postsSorted (state) {
+    return [...state.posts].sort((a, b) => {
+      return b.data.timestamp - a.data.timestamp
+    })
   }
 }

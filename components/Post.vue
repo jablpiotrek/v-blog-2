@@ -30,9 +30,9 @@
 
       <button
         v-if="displayControls"
-        @click="back"
         type="button"
         class="post__goto"
+        @click="back"
       >
         Go to posts list
       </button>

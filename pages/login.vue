@@ -26,9 +26,9 @@
         >
       </div>
       <button
-        @click="logIn"
         type="button"
         name="log-in"
+        @click="logIn"
       >
         Sign in
       </button>
@@ -38,9 +38,9 @@
         You are logged in.
       </p>
       <button
-        @click="logOut"
         type="button"
         name="password"
+        @click="logOut"
       >
         Log out
       </button>

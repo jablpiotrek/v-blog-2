@@ -10,9 +10,9 @@
       <button
         v-for="(action, key) in actions"
         :key="key"
-        @click="action.handler"
         :class="`modal__actions-button${action.danger ? ' modal__actions-button--danger' : ''}`"
         role="button"
+        @click="action.handler"
       >
         {{ action.title }}
       </button>

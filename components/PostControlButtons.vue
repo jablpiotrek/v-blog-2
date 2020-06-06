@@ -1,62 +1,33 @@
 <template>
   <div class="post-control-buttons">
     <button
-      @click="editPost"
       type="button"
       class="post-control-buttons__button"
+      @click="editPost"
     >
       Edit
     </button>
 
     <button
-      @click="showDeleteModal"
       type="button"
       class="post-control-buttons__button post-control-buttons__button--delete"
+      @click="showDeleteModal"
     >
       Delete
     </button>
-    <modal :name="`delete-post-modal-${postId}`" :max-width="600" :adaptive="true" height="auto">
-      <modal-content
-        :header="deletePostModal.header"
-        :text="deletePostModal.text"
-        :actions="deletePostModal.actions"
-      />
-    </modal>
   </div>
 </template>
 
 <script>
-import ModalContent from './ModalContent.vue'
+import DeletePost from '@/components/DeletePost.vue'
 import '@/plugins/firestore'
 
 export default {
   name: 'PostControlButtons',
-  components: {
-    ModalContent
-  },
   props: {
     postId: {
       type: String,
       required: true
-    }
-  },
-  data () {
-    return {
-      deletePostModal: {
-        header: 'Delete post',
-        text: 'Do you really want to delete post?',
-        actions: [
-          {
-            title: 'No',
-            handler: this.hideDeletePopup
-          },
-          {
-            title: 'Yes',
-            handler: this.deletePost,
-            danger: true
-          }
-        ]
-      }
     }
   },
   computed: {
@@ -66,10 +37,8 @@ export default {
   },
   methods: {
     showDeleteModal () {
-      this.$modal.show(`delete-post-modal-${this.postId}`)
-    },
-    hideDeletePopup () {
-      this.$modal.hide(`delete-post-modal-${this.postId}`)
+      const { postId } = this
+      this.$modal.show(DeletePost, { postId })
     },
     editPost () {
       this.$router.push({
@@ -78,10 +47,6 @@ export default {
           postId: this.postId
         }
       })
-    },
-    async deletePost () {
-      await this.$store.dispatch('deletePost', this.postId)
-      this.hideDeletePopup()
     }
   }
 }

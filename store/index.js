@@ -5,7 +5,8 @@ const publishedPosts = allPosts.where('published', '==', true)
 
 export const state = () => ({
   posts: [],
-  currentUser: null
+  currentUser: null,
+  rootUrl: process.env.VUE_APP_ROOT_URL
 })
 
 export const actions = {

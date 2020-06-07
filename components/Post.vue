@@ -88,48 +88,9 @@ export default {
       chagesDebounce: null
     }
   },
-  metaInfo () {
-    return {
-      title: this.meta.title,
-      meta: [
-        {
-          property: 'og:url',
-          content: this.meta.url
-        },
-        {
-          property: 'og:type',
-          content: 'article'
-        },
-        {
-          property: 'og:title',
-          content: this.meta.title
-        },
-        {
-          property: 'og:description',
-          content: this.meta.desc
-        },
-        {
-          property: 'description',
-          content: this.meta.desc
-        },
-        {
-          property: 'og:image',
-          content: this.meta.thumbnail
-        }
-      ]
-    }
-  },
   computed: {
     isEditable () {
       return this.$store.getters.isUserLoggedIn
-    },
-    meta () {
-      return {
-        url: window.location.href,
-        title: this.title,
-        desc: this.abstract,
-        thumbnail: this.thumbnail
-      }
     }
   },
   mounted () {
@@ -152,6 +113,33 @@ export default {
           hljs.highlightBlock(block)
         })
       }
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        {
+          property: 'og:url',
+          content: `${this.$store.state.rootUrl}${this.$nuxt.$route.path}`
+        },
+        {
+          property: 'og:type',
+          content: 'article'
+        },
+        {
+          property: 'og:title',
+          content: this.title
+        },
+        {
+          property: 'og:description',
+          content: this.abstract
+        },
+        {
+          property: 'og:image',
+          content: this.thumbnail
+        }
+      ]
     }
   }
 }
@@ -236,6 +224,13 @@ export default {
         font-style: italic;
         text-align: center;
         margin-top: 0;
+      }
+
+      &.citation {
+        font-style: italic;
+        margin: $spacer-big $spacer-large;
+        border-left: 1px solid $primary;
+        padding: 0 0 $spacer $spacer;
       }
     }
 

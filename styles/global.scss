@@ -5,12 +5,12 @@
 @import './global/text-sizes';
 @import './global/mixins';
 @import './global/components';
-@import './global//v-modal';
-@import './global//modal';
+@import './global/v-modal';
+@import './global/modal';
 @import './global/z-indexes';
 
 // global text setup
-h1, h2, h3, h4, h5, h6, p, a {
+h1, h2, h3, h4, h5, h6, p, a, li {
     font-family: $serif;
     color: $primary;
     margin: 0;
@@ -23,9 +23,13 @@ h2 {
   font-size: $font-big;
  }
 
-p, a {
+p, a, li {
     font-size: $font-base;
     font-weight: normal;
+}
+
+a {
+  font-size: inherit;
 }
 
 body, html {

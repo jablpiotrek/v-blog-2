@@ -29,9 +29,9 @@
         </p>
       </div>
       <button
-        @click="openPost"
         type="button"
         class="post-thumbnail__goto"
+        @click="openPost"
       >
         Go to post
         <icon

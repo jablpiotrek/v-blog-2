@@ -1,6 +1,7 @@
 <template>
   <div>
     <post
+      v-if="showPost"
       :post-id="id"
       :title="post.data.title"
       :edit-time="formatTime(post.data.timestamp)"
@@ -10,6 +11,7 @@
       :abstract="post.data.abstract"
       :thumbnail="post.data.thumbnail"
     />
+    <post-placeholder v-else />
   </div>
 </template>
 
@@ -17,10 +19,12 @@
 import time from '@/mixins/time'
 
 import Post from '@/components/Post.vue'
+import PostPlaceholder from '@/components/PostPlaceholder.vue'
 
 export default {
   components: {
-    Post
+    Post,
+    PostPlaceholder
   },
   mixins: [time],
   computed: {
@@ -32,6 +36,10 @@ export default {
     },
     isLoading () {
       return !this.$store.state.postsFetched
+    },
+    showPost () {
+      const { isLoading, post } = this
+      return isLoading && post
     }
   }
 }

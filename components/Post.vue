@@ -12,11 +12,11 @@
       </h2>
     </div>
 
-    <p>
+    <p class="post__abstract">
       {{ abstract }}
     </p>
 
-    <div v-html="html" />
+    <div class="post__main" v-html="html" />
     <div class="post__footer">
       <div class="post__details">
         <p class="post__author">
@@ -30,9 +30,9 @@
 
       <button
         v-if="displayControls"
-        @click="back"
         type="button"
         class="post__goto"
+        @click="back"
       >
         Go to posts list
       </button>
@@ -45,37 +45,6 @@ import 'highlight.js/styles/monokai-sublime.css'
 
 export default {
   name: 'Post',
-  metaInfo () {
-    return {
-      title: this.meta.title,
-      meta: [
-        {
-          property: 'og:url',
-          content: this.meta.url
-        },
-        {
-          property: 'og:type',
-          content: 'article'
-        },
-        {
-          property: 'og:title',
-          content: this.meta.title
-        },
-        {
-          property: 'og:description',
-          content: this.meta.desc
-        },
-        {
-          property: 'description',
-          content: this.meta.desc
-        },
-        {
-          property: 'og:image',
-          content: this.meta.thumbnail
-        }
-      ]
-    }
-  },
   props: {
     postId: {
       type: String,
@@ -114,6 +83,42 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      chagesDebounce: null
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      meta: [
+        {
+          property: 'og:url',
+          content: this.meta.url
+        },
+        {
+          property: 'og:type',
+          content: 'article'
+        },
+        {
+          property: 'og:title',
+          content: this.meta.title
+        },
+        {
+          property: 'og:description',
+          content: this.meta.desc
+        },
+        {
+          property: 'description',
+          content: this.meta.desc
+        },
+        {
+          property: 'og:image',
+          content: this.meta.thumbnail
+        }
+      ]
+    }
+  },
   computed: {
     isEditable () {
       return this.$store.getters.isUserLoggedIn
@@ -131,14 +136,15 @@ export default {
     this.higlightCode()
   },
   updated () {
-    this.higlightCode()
+    clearTimeout(this.changesDebounce)
+    this.changesDebounce = setTimeout(this.higlightCode, 1000)
   },
   methods: {
     back () {
       this.$router.push('/')
     },
     async higlightCode () {
-      const codeBlocks = document.querySelectorAll('code')
+      const codeBlocks = document.querySelectorAll('pre')
 
       if (codeBlocks.length) {
         const hljs = await import(/* webpackChunkName: 'highlight-js' */'highlight.js')
@@ -165,7 +171,7 @@ export default {
   }
 
   &__thumbnail {
-     width: 70px;
+    width: 70px;
     height: 70px;
     border-radius: 35px;
     object-fit: cover;
@@ -181,10 +187,70 @@ export default {
   }
 
   &__title {
-        margin: $spacer 0;
+    font-size: $font-large;
+    text-align: center;
 
     @media #{$screen-medium} {
-      margin-left: $spacer-big;
+      margin-left: $spacer;
+      text-align: left;
+      font-size: $font-extra-large;
+    }
+  }
+
+  &__abstract {
+    padding: $spacer-big 0;
+    font-style: italic;
+  }
+
+  &__main {
+    img {
+      width: 100%;
+      margin: $spacer 0;
+      &.original-width {
+        width: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
+    }
+
+    h2 {
+      font-size: $font-big;
+      margin-top: $spacer-big;
+      margin-bottom: $spacer-small;
+      border-left: 3px solid $secondary;
+      padding-left: $spacer-big;
+
+      @media #{$screen-medium} {
+       font-size: $font-large;
+      }
+    }
+
+    p {
+      margin: $spacer 0;
+      line-height: 1.6;
+
+      &.description {
+        font-size: $font-small;
+        font-style: italic;
+        text-align: center;
+        margin-top: 0;
+      }
+    }
+
+    li {
+      margin: $spacer-small 0;
+    }
+
+    ul, ol {
+      padding: $spacer-big $spacer-large;
+    }
+
+    .hljs {
+      margin: $spacer-big $spacer;
+      border-radius: $spacer-small;
+      box-shadow: 4px 4px 13px -3px rgba(0,0,0,1);
     }
   }
 

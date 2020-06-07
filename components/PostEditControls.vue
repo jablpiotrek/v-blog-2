@@ -1,66 +1,34 @@
 <template>
   <div class="post-edit-controls">
     <button
-      @click="submit"
       type="button"
       class="post-edit-controls__submit"
+      @click="submit"
     >
       Submit post
     </button>
 
     <button
-      @click="show"
       type="button"
       class="post-edit-controls__close"
+      @click="show"
     >
       Close
     </button>
-
-    <modal :max-width="600" :adaptive="true" name="close-confirmation-modal" height="auto">
-      <modal-content
-        :header="header"
-        :text="text"
-        :actions="actions"
-      />
-    </modal>
   </div>
 </template>
 
 <script>
-import ModalContent from './ModalContent.vue'
+import CloseConfirmnation from '@/components/CloseConfirmation.vue'
 
 export default {
   name: 'PostEditControls',
-  components: {
-    ModalContent
-  },
-  data () {
-    return {
-      header: 'Discard changes',
-      text: 'Do you want to discard changes?',
-      actions: [
-        {
-          title: 'No',
-          handler: this.hide
-        },
-        {
-          title: 'Yes',
-          handler: this.close,
-          danger: true
-        }
-
-      ]
-    }
-  },
   methods: {
     submit () {
       this.$emit('submit')
     },
     show () {
-      this.$modal.show('close-confirmation-modal')
-    },
-    hide () {
-      this.$modal.hide('close-confirmation-modal')
+      this.$modal.show(CloseConfirmnation)
     }
   }
 }

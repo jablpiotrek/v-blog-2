@@ -6,7 +6,7 @@ const publishedPosts = allPosts.where('published', '==', true)
 export const state = () => ({
   posts: [],
   currentUser: null,
-  rootUrl: process.env.VUE_APP_ROOT_URL
+  rootUrl: 'https://blog.jablonski.tech' // TODO: move to env variables
 })
 
 export const actions = {

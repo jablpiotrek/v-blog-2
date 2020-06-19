@@ -41,6 +41,13 @@ export default {
       const { isLoading, post } = this
       return isLoading && post
     }
+  },
+  mounted () {
+    this.$ga.page({
+      page: `/post/${this.id}`,
+      title: this.post.data.title,
+      location: window.location.href
+    })
   }
 }
 </script>

@@ -30,7 +30,8 @@ export default {
   plugins: [
     '@/plugins/firestore.js',
     '@/plugins/vue-js-modal.js',
-    '@/plugins/firebase-auth-observer.js'
+    '@/plugins/firebase-auth-observer.js',
+    '@/plugins/google-analytics.js'
   ],
   /*
   ** Nuxt.js dev-modules

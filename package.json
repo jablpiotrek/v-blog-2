@@ -1,7 +1,7 @@
 {
-  "name": "v-blog-2",
-  "version": "1.0.0",
-  "description": "Vue blog app redesigned!",
+  "name": "blog",
+  "version": "2.3.1",
+  "description": "Blog about webdev and stuff, by Piotr Jablonski",
   "author": "Piotr Jablonski",
   "private": true,
   "scripts": {

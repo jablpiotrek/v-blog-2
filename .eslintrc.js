@@ -10,9 +10,9 @@ module.exports = {
   extends: [
     '@nuxtjs',
     'plugin:nuxt/recommended',
-    'plugin:vue/recommended'
   ],
   // add your custom rules here
   rules: {
+    'vue/no-v-html': 'off'
   }
 }

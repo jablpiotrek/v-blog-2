@@ -68,6 +68,13 @@ export default {
     posts () {
       return this.$store.getters.postsSorted
     }
+  },
+  mounted () {
+    this.$ga.page({
+      page: `/`,
+      title: 'index',
+      location: window.location.href
+    })
   }
 }
 </script>

@@ -38,7 +38,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    ['@nuxtjs/dotenv', { filename: '.env.local' }]
+    ['@nuxtjs/dotenv', { filename: '.env.local' }],
+    ['@nuxtjs/google-analytics', { id: process.env.VUE_APP_FIREBASE_POSTS_COLLECTION }]
   ],
   /*
   ** Nuxt.js modules

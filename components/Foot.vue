@@ -33,7 +33,7 @@
 .foot {
   display: block;
   background-color: $primary;
-  border-top: 12px solid $secondary;
+  border-top: $spacer-small solid $secondary;
 
   &__links {
     display: flex;
@@ -49,7 +49,7 @@
   }
 
   &__icon {
-    padding: $spacer;
+    padding: $spacer-small $spacer;
     color: $white;
     &:hover,
     &:focus {

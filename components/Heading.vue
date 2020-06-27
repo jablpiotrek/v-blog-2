@@ -6,11 +6,11 @@
         class="heading__home-link"
       >
         <h1 class="heading__title">
-          <span class="heading__keyword">blog</span>.jablonski.<strong>tech</strong>
+          // <span class="heading__keyword">blog</span>.jablonski.<strong>tech</strong>
         </h1>
       </router-link>
       <h2 class="heading__sentence">
-        { <span class="heading__sentence heading__sentence--keyword">webdev</span> +  <span class="heading__sentence heading__sentence--keyword">stuff</span> }
+        <span class="heading__sentence heading__sentence--keyword">webdev</span> & <span class="heading__sentence heading__sentence--keyword">stuff</span>
       </h2>
     </div>
     <div class="heading__navigation">
@@ -60,7 +60,7 @@ export default {
   width: 100%;
   min-height: 70px;
   background: $primary;
-  border-bottom: $spacer solid $secondary;
+  border-bottom: $spacer-small solid $secondary;
 
   &--compact {
     min-height: 42px;
@@ -88,12 +88,15 @@ export default {
     text-transform: uppercase;
     font-family: $sans-serif;
     font-size:  $font-big;
+    .heading--compact & {
+        font-size: $font-small;
+      }
 
     @media #{$screen-medium} {
       font-size: $font-extra-large;
       align-self: center;
       .heading--compact & {
-        font-size: $font-large;
+        font-size: $font-base;
       }
     }
   }

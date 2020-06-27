@@ -49,8 +49,8 @@ export default {
   },
   methods: {
     async submit () {
-      const { id } = this
-      const data = { ...this.post, timestamp: this.post.timestamp }
+      const { id, post } = this
+      const data = { ...post, timestamp: post.timestamp }
       const overwrite = true
 
       await this.$store.dispatch('addPost', { id, data, overwrite })

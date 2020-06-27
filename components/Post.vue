@@ -114,33 +114,6 @@ export default {
         })
       }
     }
-  },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        {
-          property: 'og:url',
-          content: `${this.$store.state.rootUrl}${this.$nuxt.$route.path}`
-        },
-        {
-          property: 'og:type',
-          content: 'article'
-        },
-        {
-          property: 'og:title',
-          content: this.title
-        },
-        {
-          property: 'og:description',
-          content: this.abstract
-        },
-        {
-          property: 'og:image',
-          content: this.thumbnail
-        }
-      ]
-    }
   }
 }
 </script>
@@ -208,10 +181,11 @@ export default {
       margin-top: $spacer-big;
       margin-bottom: $spacer-small;
       border-left: 3px solid $secondary;
-      padding-left: $spacer-big;
+      padding-left: $spacer;
 
       @media #{$screen-medium} {
        font-size: $font-large;
+       padding-left: $spacer;
       }
     }
 
@@ -228,9 +202,12 @@ export default {
 
       &.citation {
         font-style: italic;
-        margin: $spacer-big $spacer-large;
+        margin: $spacer;
         border-left: 1px solid $primary;
         padding: 0 0 $spacer $spacer;
+        @media #{$screen-medium} {
+          margin: $spacer-big $spacer-large;
+        }
       }
     }
 
@@ -239,7 +216,10 @@ export default {
     }
 
     ul, ol {
-      padding: $spacer-big $spacer-large;
+      padding: $spacer 0 $spacer $spacer-big;
+      @media #{$screen-medium} {
+        padding: $spacer-big $spacer-large;
+      }
     }
 
     .hljs {

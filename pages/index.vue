@@ -33,13 +33,13 @@ export default {
     NoPosts
   },
   mixins: [time],
-  metaInfo () {
+  head () {
     return {
       title: metaConfig.title,
       meta: [
         {
           property: 'og:url',
-          content: window.location.href
+          content: `${this.$store.state.rootUrl}${this.$nuxt.$route.path}`
         },
         {
           property: 'og:type',
@@ -51,10 +51,6 @@ export default {
         },
         {
           property: 'og:description',
-          content: metaConfig.desc
-        },
-        {
-          property: 'description',
           content: metaConfig.desc
         },
         {

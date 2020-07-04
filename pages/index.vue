@@ -33,6 +33,18 @@ export default {
     NoPosts
   },
   mixins: [time],
+  computed: {
+    posts () {
+      return this.$store.getters.postsSorted
+    }
+  },
+  mounted () {
+    this.$ga.page({
+      page: `/`,
+      title: 'index',
+      location: window.location.href
+    })
+  },
   head () {
     return {
       title: metaConfig.title,
@@ -59,18 +71,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    posts () {
-      return this.$store.getters.postsSorted
-    }
-  },
-  mounted () {
-    this.$ga.page({
-      page: `/`,
-      title: 'index',
-      location: window.location.href
-    })
   }
 }
 </script>

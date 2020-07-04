@@ -1,7 +1,7 @@
 <template>
   <div>
     <post
-      v-if="showPost"
+      v-if="showPost && post"
       :post-id="id"
       :title="post.data.title"
       :edit-time="formatTime(post.data.timestamp)"
@@ -42,39 +42,43 @@ export default {
       return isLoading && post
     }
   },
-  head () {
-    return {
-      title: this.post.data.title,
-      meta: [
-        {
-          property: 'og:url',
-          content: `${this.$store.state.rootUrl}${this.$nuxt.$route.path}`
-        },
-        {
-          property: 'og:type',
-          content: 'article'
-        },
-        {
-          property: 'og:title',
-          content: this.post.data.title
-        },
-        {
-          property: 'og:description',
-          content: this.post.data.abstract
-        },
-        {
-          property: 'og:image',
-          content: this.post.data.thumbnail
-        }
-      ]
+  mounted () {
+    if (this.post) {
+      this.$ga.page({
+        page: `/post/${this.id}`,
+        title: this.post.data.title,
+        location: window.location.href
+      })
     }
   },
-  mounted () {
-    this.$ga.page({
-      page: `/post/${this.id}`,
-      title: this.post.data.title,
-      location: window.location.href
-    })
+  head () {
+    if (this.post) {
+      return {
+        title: this.post.data.title,
+        meta: [
+          {
+            property: 'og:url',
+            content: `${this.$store.state.rootUrl}${this.$nuxt.$route.path}`
+          },
+          {
+            property: 'og:type',
+            content: 'article'
+          },
+          {
+            property: 'og:title',
+            content: this.post.data.title
+          },
+          {
+            property: 'og:description',
+            content: this.post.data.abstract
+          },
+          {
+            property: 'og:image',
+            content: this.post.data.thumbnail
+          }
+        ]
+      }
+    }
   }
 }
 </script>

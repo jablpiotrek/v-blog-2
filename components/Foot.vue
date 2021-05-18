@@ -1,6 +1,6 @@
 <template>
   <footer class="foot">
-    <h1>test</h1>
+    <h1>test</h1>hhhh
     <ul class="foot__links">
       <li class="foot__item">
         <a
